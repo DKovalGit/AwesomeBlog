@@ -18,6 +18,8 @@ namespace CustomIdentityApp.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
+        
+        // https://localhost:5001/Roles
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();
@@ -54,6 +56,7 @@ namespace CustomIdentityApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //https://localhost:5001/Roles/UserList
         public IActionResult UserList() => View(_userManager.Users.ToList());
 
         public async Task<IActionResult> Edit(string userId)
