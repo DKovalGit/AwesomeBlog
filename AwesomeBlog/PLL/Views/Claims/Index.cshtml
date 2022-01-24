@@ -1,0 +1,29 @@
+﻿@using System.Security.Claims;
+
+
+@model IEnumerable<Claim>
+
+@{ ViewBag.Title = "Клаймы"; }
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        КЛАЙМЫ
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Subject</th>
+            <th>Issuer</th>
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        @foreach (Claim claim in Model.OrderBy(x => x.Type))
+        {
+    <tr>
+        <td>@claim.Subject.Name</td>
+        <td>@claim.Issuer</td>
+        <td>@claim.Type.Split('/', '.').Last()</td>
+        <td>@claim.Value</td>
+    </tr>
+        }
+    </table>
+</div>

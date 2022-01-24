@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AwesomeBlog.PLL
+namespace AwesomeBlog.PLL.Infrastructure
 {
     /// <summary>
     /// Класс для инициализации начальных данных

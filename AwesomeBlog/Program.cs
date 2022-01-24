@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AwesomeBlog;
 using AwesomeBlog.DAL.Models;
-using AwesomeBlog.PLL;
+using AwesomeBlog.PLL.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;

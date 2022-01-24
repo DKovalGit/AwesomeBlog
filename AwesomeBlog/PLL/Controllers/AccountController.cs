@@ -54,6 +54,7 @@ namespace AwesomeBlog.PLL.Controllers
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
+        // https://localhost:5001/Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
