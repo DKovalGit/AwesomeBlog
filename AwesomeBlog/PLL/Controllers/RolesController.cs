@@ -25,11 +25,11 @@ namespace CustomIdentityApp.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(string name)
+        public async Task<IActionResult> Create(string name, string comment)
         {
             if (!string.IsNullOrEmpty(name))
             {
-                IdentityResult result = await _roleManager.CreateAsync(new Role(name));
+                IdentityResult result = await _roleManager.CreateAsync(new Role(name, comment));
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");

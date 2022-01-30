@@ -18,11 +18,11 @@ namespace AwesomeBlog.PLL.Infrastructure
             string password = "12345678";
             if (await roleManager.FindByNameAsync("admin") == null)
             {
-                await roleManager.CreateAsync(new Role("admin"));
+                await roleManager.CreateAsync(new Role("admin", "Админ может всё"));
             }
             if (await roleManager.FindByNameAsync("user") == null)
             {
-                await roleManager.CreateAsync(new Role("user"));
+                await roleManager.CreateAsync(new Role("user", " Права на изменение своих статей, комментариев, тегов"));
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {

@@ -11,7 +11,9 @@ namespace AwesomeBlog.DAL
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, string>
     {
-        public DbSet<UserPosts> UserPosts { get; set; }
+        public DbSet<UserPost> UserPosts { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<PostTag> PostTags { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -33,6 +35,10 @@ namespace AwesomeBlog.DAL
             modelBuilder.Entity<IdentityUserRole<string>>()
                 .ToTable("UserRoles");
 
+            // уникальный индекс для UserPostId, TagId таблицы PostTags
+            //modelBuilder.Entity<PostTag>()
+            //    .HasIndex(u => new { u.UserPostId, u.TagId }).IsUnique()
+            //    .HasDatabaseName("UQ_PostTag");
         }
     }
 }

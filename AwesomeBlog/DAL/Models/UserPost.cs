@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AwesomeBlog.DAL.Models
 {
     [Table("UserPosts")]
-    public class UserPosts
+    public class UserPost
     {        
         public Guid Id { get; set; } = Guid.NewGuid();
 

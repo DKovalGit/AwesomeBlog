@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using AwesomeBlog.DAL.Models;
 using AwesomeBlog.BLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -16,6 +17,7 @@ namespace CustomIdentityApp.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         public IActionResult Index() => View(_userManager.Users.ToList());
 
         public IActionResult Create() => View();

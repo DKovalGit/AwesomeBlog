@@ -48,13 +48,13 @@ namespace AwesomeBlog.PLL.Controllers
         }
         // --- Авторизация пользователей
 
+        // https://localhost:5001/Account/Login
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
-
-        // https://localhost:5001/Account/Login
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)

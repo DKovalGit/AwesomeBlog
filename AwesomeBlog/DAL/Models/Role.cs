@@ -8,7 +8,11 @@ namespace AwesomeBlog.DAL.Models
 {
     public class Role:IdentityRole
     {
+        public string Comment { get; set; }
         public Role() : base() { }
-        public Role(string roleName) : base(roleName) { }
+        public Role(string roleName, string roleComment) : base(roleName) 
+        { 
+            Comment = roleComment; 
+        }
     }
 }
