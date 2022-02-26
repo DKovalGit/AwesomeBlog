@@ -51,9 +51,11 @@ namespace AwesomeBlog
 
             services.AddControllersWithViews();
             services.AddControllers();
+            // https://metanit.com/sharp/aspnet5/6.2.php
+            services.AddTransient<IRepository<Tag>, TagsRepository>();
 
             services
-                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
+                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))                
                 .AddIdentity<User, Role>(opts =>
                 {
                     opts.Password.RequiredLength = 5;
@@ -65,7 +67,7 @@ namespace AwesomeBlog
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Module32", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AweSomeBlog", Version = "v1" });
             });
         }
 

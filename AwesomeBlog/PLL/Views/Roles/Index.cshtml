@@ -10,6 +10,7 @@
         <td>@role.Comment</td>
         <td>
             <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">Изменить</a>
                 <button type="submit" class="btn btn-sm btn-danger">
                     Удалить
                 </button>

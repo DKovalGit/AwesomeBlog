@@ -14,6 +14,7 @@ namespace AwesomeBlog.DAL
         public DbSet<UserPost> UserPosts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostComment> PostComments { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

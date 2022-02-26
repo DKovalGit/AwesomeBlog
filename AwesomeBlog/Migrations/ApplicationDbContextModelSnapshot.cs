@@ -19,6 +19,34 @@ namespace AwesomeBlog.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AwesomeBlog.DAL.Models.PostComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(8000)
+                        .HasColumnType("VARCHAR(8000)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("UserPostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserPostId");
+
+                    b.ToTable("PostComments");
+                });
+
             modelBuilder.Entity("AwesomeBlog.DAL.Models.PostTag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -166,6 +194,10 @@ namespace AwesomeBlog.Migrations
                         .HasMaxLength(8000)
                         .HasColumnType("VARCHAR(8000)");
 
+                    b.Property<string>("Title")
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR(255)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -278,6 +310,23 @@ namespace AwesomeBlog.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("AwesomeBlog.DAL.Models.PostComment", b =>
+                {
+                    b.HasOne("AwesomeBlog.DAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("AwesomeBlog.DAL.Models.UserPost", "UserPost")
+                        .WithMany()
+                        .HasForeignKey("UserPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserPost");
                 });
 
             modelBuilder.Entity("AwesomeBlog.DAL.Models.PostTag", b =>

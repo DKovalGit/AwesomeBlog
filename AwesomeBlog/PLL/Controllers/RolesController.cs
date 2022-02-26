@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using AwesomeBlog.DAL.Models;
 using AwesomeBlog.BLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -18,8 +19,9 @@ namespace CustomIdentityApp.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
-        
+
         // https://localhost:5001/Roles
+        [Authorize]
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();
@@ -59,6 +61,46 @@ namespace CustomIdentityApp.Controllers
         //https://localhost:5001/Roles/UserList
         public IActionResult UserList() => View(_userManager.Users.ToList());
 
+      
+        public async Task<IActionResult> EditRole(string id)
+        {            
+            Role role  = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            EditRoleViewModel model = new EditRoleViewModel { Id = role.Id, Name = role.Name, Comment = role.Comment };
+            return View(model);
+            //System.Console.WriteLine($"Role - {id}");
+            //return RedirectToAction("Index");
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Role role = await _roleManager.FindByIdAsync(model.Id);
+                if (role != null)
+                {
+                    role.Name = model.Name;
+                    role.Comment = model.Comment;
+                    var result = await _roleManager.UpdateAsync(role);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
+            return View(model);
+        }
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя
